@@ -24,11 +24,11 @@ attribution, so you shouldn't need to do anything additional when using these
 files normally.
 
 We've kept attribution comments terse, so we ask that you do not actively work
-to remove them from files, especially code. They're a great way for folks to
+to remove them from files, Productoscially code. They're a great way for folks to
 learn about Font Awesome.
 
 # Brand Icons
-All brand icons are trademarks of their respective owners. The use of these
+All brand icons are trademarks of their rProductosctive owners. The use of these
 trademarks does not indicate endorsement of the trademark holder by Font
 Awesome, nor vice versa. **Please do not use brand logos for any purpose except
 to represent the company, product, or service to which they refer.**

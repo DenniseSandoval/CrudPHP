@@ -1,3 +1,25 @@
+<?php
+    $enlace = mysqli_connect("127.0.0.1", "root", "root", "tienda");
+    if (!$enlace) {
+        echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
+        echo "errno de depuración: " . mysqli_connect_errno() . PHP_EOL;
+        echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
+        echo "<p/>";
+        exit;
+    }
+    if(isset($_GET["update"])){
+        $result=$enlace->query("SELECT * FROM producto WHERE codigo=".$_GET["update"]);
+        if($result->num_rows>0){
+          $row1= $result->fetch_assoc();
+          $codigo=$row1["codigo"];
+          $descripcion=$row1["descripcion"];
+          $categoria=$row1["categoria"];
+          $fechaExpiracion=$row1["fecha_expiracion"];
+          $precio=$row1["precio"];
+        }
+    }
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -64,7 +86,7 @@
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li class="breadcrumb-item"><a href="../index.html"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item">Registro</li>
+                  <li class="breadcrumb-item">Modificar Producto</li>
                 </ol>
               </nav>
             </div>
@@ -78,11 +100,22 @@
               <form name="registro" action="./listaProducts.php" method="POST" >
                   <div class="border p-4 form">
                       <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label id="lblCodigo" for="codigo">Código</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" style="color: #5D5C5C;" name="codigo" class="form-control"  disabled value="<?php echo $row1["codigo"]?>">
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="hidden" name="codigo" class="form-control"  value="<?php echo $row1["codigo"]?>">
+                            </div>
+                      </div>
+                      <div class="form-group row">
                           <div class="col-sm-4">
                               <label id="lblDescripcion" for="descripcion">Descripción</label>
                           </div>
                           <div class="col-sm-8">
-                              <input type="text" style="color: #5D5C5C;" name="descripcion" required class="form-control" placeholder= "Leche" value="">
+                              <input type="text" style="color: #5D5C5C;" name="descripcion" class="form-control" placeholder= "Leche" value="<?php echo $row1["descripcion"]?>">
                           </div>
                       </div>
                       <div class="form-group row">
@@ -92,6 +125,7 @@
                           <div class="col-sm-8">
                             <div class="input-group mb-3">
                               <select style="color: #5D5C5C;" class="custom-select" id="categoria" name="categoria">
+                              <option hidden selected><?php echo $categoria;?></option>
                                 <option value="Carnes">Carnes</option>
                                 <option value="Legumbres">Legumbres</option>
                                 <option value="Lacteos">Lácteos</option>
@@ -105,8 +139,8 @@
                               <label id="lblFecha" for="fechaExpiracion">Fecha Expiración</label><br>
                           </div>
                           <div class="col-sm-8">
-                              <input type="date"style="color: #5D5C5C;" class="form-control" id="fechaExpiracion" name="fechaExpiracion"
-                                  value=""  max="2022-12-31">
+                              <input type="date" style="color: #5D5C5C;" class="form-control" id="fechaExpiracion" name="fechaExpiracion"
+                                  value="<?php echo $row1["fecha_expiracion"]?>"  max="2022-12-31">
                           </div>
                       </div>
                       <div class="form-group row">
@@ -114,16 +148,16 @@
                               <label id="lblPrecio" for="precio">Precio</label><br>
                           </div>
                           <div class="col-sm-8">
-                            <input type="number" style="color: #5D5C5C;" step="any" class="form-control" id="precio" name="precio" value="">
+                            <input type="number" style="color: #5D5C5C;" step="any" class="form-control" id="precio" name="precio" value="<?php echo $row1["precio"]?>">
                           </div>
                       </div>
                       <div class="form-group row" style="justify-content: center;">
                           <div class="col-sm-6 mb-3 mb-sm-0">
-                              <input class="btn btn-primary btn-user btn-block" type="submit" name="registrar"
-                                  value="Registrar">
+                              <input class="btn btn-primary btn-user btn-block" name="modificar" type="submit"
+                                  value="Modificar">
                           </div>
                           <div class="col-sm-6">
-                            <a href="../index.html"
+                            <a href="./listaProducts.php"
                             class="btn btn-primary btn-user btn-block ">
                             Cancelar
                         </a>
