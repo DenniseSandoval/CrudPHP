@@ -1,4 +1,8 @@
 <?php
+    session_start();
+    if (!isset($_SESSION['user'])) {
+    header('Location: ../login.html');
+    }
     include './services/productService.php';
     $ProductService=new ProductService();
     if(isset($_GET["update"])){
@@ -36,47 +40,17 @@
 
 <body>
     <!-- Sidenav -->
-    <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
-        <div class="scrollbar-inner">
-            <!-- Brand -->
-            <div class="sidenav-header  align-items-center">
-                <a class="navbar-brand" href="../index.html">
-                    <img src="../assets/img/inicio.png">
-                    <strong>
-                        <h2>Productos</h2>
-                    </strong>
-                </a>
-            </div>
-            <div class="navbar-inner">
-                <!-- Collapse -->
-                <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-                    <!-- Nav items -->
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="./register.html">
-                                <i class="fa fa-plus-circle text-primary"></i>
-                                <span class="nav-link-text">Agregar registros</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./listaProducts.php">
-                                <i class="ni ni-bullet-list-67 text-primary"></i>
-                                <span class="nav-link-text">Lista Registros</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php include("../views/partials/menu.php");?>
     <!-- Main content -->
     <div class="main-content" id="panel">
         <!-- Header -->
         <!-- Header -->
-        <div class="header bg-primary pb-2">
-            <div class="container-fluid">
-                <div class="header-body">
-                    <div class="row align-items-center">
+        <div class="main-content" id="panel">
+            <!-- Header -->
+            <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- Search form -->
                         <div class="col-lg-6 col-7"><br>
                             <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -86,10 +60,12 @@
                                 </ol>
                             </nav>
                         </div>
+                        <?php include("../views/partials/header.php");?>
                     </div>
                 </div>
-            </div>
-        </div><br>
+            </nav>
+        </div>
+        <div class="py-4"></div>
         <div style="display: flex;align-items: center;justify-content: center;">
             <div class="abs-center">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -173,6 +149,7 @@
         </div>
 
     </div>
+    <?php include("../views/partials/footer.php");?>
 </body>
 
 </html>
